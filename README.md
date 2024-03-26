@@ -1,31 +1,54 @@
-For this project, you will assume the role of a Data Scientist / Data Analyst working for a new startup investment firm that helps customers invest their money in stocks. Your job is to extract financial data like historical share price and quarterly revenue reportings from various sources using Python libraries and webscraping on popular stocks. After collecting this data you will visualize it in a dashboard to identify patterns or trends. The stocks we will work with are Tesla, Amazon, AMD, and GameStop.
+# Extracting Stock Data Using a Python Library
+A company's stock share is a piece of the company more precisely:
 
-Dashboard Analytics Displayed
+A stock (also known as equity) is a security that represents the ownership of a fraction of a corporation. This entitles the owner of the stock to a proportion of the corporation's assets and profits equal to how much stock they own. Units of stock are called "shares." [1]
 
-A dashboard often provides a view of key performance indicators in a clear way. Analyzing a data set and extracting key performance indicators will be practiced. Prompts will be used to support learning in accessing and displaying data in dashboards. Learning how to display key performance indicators on a dashboard will be included in this assignment. We will be using Plotly in this course for data visualization and is not a requirement to take this course.
+An investor can buy a stock and sell it later. If the stock price increases, the investor profits, If it decreases,the investor with incur a loss.  Determining the stock price is complex; it depends on the number of outstanding shares, the size of the company's future profits, and much more. People trade stocks throughout the day the stock ticker is a report of the price of a certain stock, updated continuously throughout the trading session by the various stock market exchanges.
 
-In the Python for Data Science, AI and Development course you utilized Skills Network Labs for hands-on labs.
+You are a data scientist working for a hedge fund; it's your job to determine any suspicious stock activity. In this lab you will extract stock data using a Python library. We will use the yfinance library, it allows us to extract data for stocks returning data in a pandas dataframe. You will use the lab to extract.
 
-For this project you will use Skills Network Labs and Watson Studio. Skills Network Labs is a sandbox environment for learning and completing labs in courses. Whereas Watson Studio, a component of IBM Cloud Pak for Data, is a suite of tools and a collaborative environment for data scientists, data analysts, AI and machine learning engineers and domain experts to develop and deploy your projects.
+## Using the yfinance Library to Extract Stock Data
+Using the Ticker module we can create an object that will allow us to access functions to extract data. To do this we need to provide the ticker symbol for the stock, here the company is Apple and the ticker symbol is AAPL.
 
-Review criteria
+`apple = yf.Ticker("AAPL")`
 
-There are two hands-on labs on Extracting Stock Data and one assignment to complete. You will be judged by completing two quizzes and one peer review assignment.
-The quizzes will test you based on the output of the hands-on labs. In the peer review assignment you will share and take screen shots of the outcomes of your assignment.
+Now we can access functions and variables to extract the type of data we need. You can view them and what they represent here https://aroussi.com/post/python-yahoo-finance.
 
+### Stock Info
+<sub> Using the attribute  <code>info</code> we can extract information about the stock as a Python dictionary.
 
-Stock shares
+`import json
 
-A company's stock share is a piece of the company; more precisely:
-A stock (also known as equity) is a security that represents the ownership of a fraction of a corporation. This
-entitles the owner of the stock to a proportion of the corporation's 
-assets and profits equal to how much stock they own. Units of stock are called "shares." 
+with open('apple.json') as json_file:
 
-An investor can buy a stock and sell it later. If the stock price increases, the investor profits, If it decreases, the investor with incur a loss.  Determining the stock price is complex; it depends on the number of outstanding shares, the size of the company's future profits, and much more. People trade stocks throughout the day. The stock ticker is a report of the price of a certain stock, updated continuously throughout the trading session by the various stock market exchanges. In this lab, you will use the  y-finance API to obtain the stock ticker and extract information about the stock. You will then be asked questions about your results.  
-
-
+    apple_info = json.load(json_file)  
     
+    # Print the type of data variable   
+    
+    #print("Type:", type(apple_info))   
+    
+apple_info`
+
+### Extracting Share Price
+A share is the single smallest part of a company's stock that you can buy, the prices of these shares fluctuate over time. Using the history() method we can get the share price of the stock over a certain period of time. Using the period parameter we can set how far back from the present to get data. The options for period are 1 day (1d), 5d, 1 month (1mo) , 3mo, 6mo, 1 year (1y), 2y, 5y, 10y, ytd, and max.
+
+`apple_share_price_data = apple.history(period="max")`
+
+The format that the data is returned in is a Pandas DataFrame. With the Date as the index the share Open, High, Low, Close, Volume, and Stock Splits are given for each day.
+
+`apple_share_price_data.head()`
+
+We can reset the index of the DataFrame with the reset_index function. We also set the inplace paramter to True so the change takes place to the DataFrame itself.
+
+`apple_share_price_data.reset_index(inplace=True)`
+
+We can plot the Open price against the Date:
+
+`apple_share_price_data.plot(x="Date", y="Open")
+`
 
 
+We can get the 'country' using the key country
 
 
+`apple_info['country']`
