@@ -17,3 +17,4 @@
 - To use pandas to retrieve data from the database tables, load data using the read_sql method and select the SQL Select Query
 
 - A categorical scatterplot is created using the swarmplot() method by the seaborn package.
+
