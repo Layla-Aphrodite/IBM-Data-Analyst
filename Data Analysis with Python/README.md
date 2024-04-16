@@ -85,5 +85,119 @@
 | Indicator Variables| Create indicator variables for categorical data.| `dummy_variable = pd.get_dummies(df['attribute_name'])` <br /> `df = pd.concat([df, dummy_variable],axis = 1)`|
 
 
+- Tools like the 'describe' function in pandas can quickly calculate key statistical measures like mean, standard deviation, and quartiles for all numerical variables in your data frame. 
+
+- Use the 'value_counts' function to summarize data into different categories for categorical data. 
+
+- Box plots offer a more visual representation of the data's distribution for numerical data, indicating features like the median, quartiles, and outliers.
+
+- Scatter plots are excellent for exploring relationships between continuous variables, like engine size and price, in a car data set.
+
+- Use Pandas' 'groupby' method to explore relationships between categorical variables.
+
+- Use pivot tables and heat maps for better data visualizations.
+
+- Correlation between variables is a statistical measure that indicates how the changes in one variable might be associated with changes in another variable.
+
+- When exploring correlation, use scatter plots combined with a regression line to visualize relationships between variables.
+
+- Visualization functions like regplot, from the seaborn library, are especially useful for exploring correlation.
+
+- The Pearson correlation, a key method for assessing the correlation between continuous numerical variables, provides two critical values—the coefficient, which indicates the strength and direction of the correlation, and the P-value, which assesses the certainty of the correlation.
+
+- A correlation coefficient close to 1 or -1 indicates a strong positive or negative correlation, respectively, while one close to zero suggests no correlation.
+
+- For P-values, values less than .001 indicate strong certainty in the correlation, while larger values indicate less certainty. Both the coefficient and P-value are important for confirming a strong correlation.
+
+## Importing libraries
+### matplotlib
+`from matplotlib import pyplot as plt` <br /> 
+Alternatively, the command can also be written as: <br /> 
+`import matplotlib.pyplot as plt`
+
+Note that most of the plots that are of interest to us in this library are contained in the pyplot subfolder of the package.
+
+matplotlib functions return a plot object which requires additional statements to display. While using matplotlib in Jupyter Notebooks, we require the graph to be displayed inside the notebook interface itself. It is, therefore, essential to add the following 'magic' statement after loading the library.
+
+`%matplotlib inline`
+
+### seaborn
+`import seaborn as sns`
+
+## matplotlib functions
+1. Standard Line Plot
+
+The simplest and most fundamental plot is a standard line plot. The function expects two arrays as input, x and y, both of the same size. x is treated as an independent variable and y as the dependent one. The graph is plotted as shortest line segments joining the x,y point pairs ordered in terms of the variable x.
+
+`plt.plot(x,y)`
+
+2. Scatter plot
+
+Scatter plots are graphs that present the relationship between two variables in a data set. It represents data points on a two-dimensional plane. The independent variable or attribute is plotted on the X-axis, while the dependent variable is plotted on the Y-axis.
+
+Scatter plots are used in either of the following situations:
+
+- When we have paired numerical data
+- When there are multiple values of the dependent variable for a unique value of an independent variable
+- In determining the relationship between variables in some scenarios
+
+`plt.scatter(x,y)`
+
+3. Histogram
+
+A histogram is an important visual representation of data in categorical form. To view the data in a "Binned" form, we may use the histogram plot with a number of bins required or even with the data points that mark the bin edges. The x-axis represents the data bins, and the y-axis represents the number of elements in each of the bins.
+
+`plt.hist(x,bins)`
+
+4. Bar plot
+A bar plot is used for visualizing catogorical data. The y-axis represents the average value of data points belonging to a particular category, while the x-axis represents the number of elements in the different categories.
+
+`plt.bar(x,height)`
+
+5. Pseudo Color Plot
+A pseudocolor plot displays matrix data as an array of colored cells (known as faces). This plot is created as a flat surface in the x-y plane. The surface is defined by a grid of x and y coordinates that correspond to the corners (or vertices) of the faces. Matrix C specifies the colors at the vertices. The color of each face depends on the color of one of its four surrounding vertices. Of the four vertices, the one that comes first in the x-y grid determines the color of the face.
+
+In this course, you use the pcolor plot for visualizing the contents of a pivot table that has been grouped on the basis of 2 parameters. Those parameters then represent the x and y-axis components that create the grid. The values in the pivot table are the average values of a third parameter. These values act as the code for the color the cell is going to take.
+
+`plt.pcolor(C)`
+
+You can define an additional cmap argument to specify the color scheme of the plot.
+
+## seaborn functions
+1. Regression plot
+
+A regression plot draws a scatter plot of two variables, x and y, and then fits the regression model and plots the resulting regression line along with a 95% confidence interval for that regression. The x and y parameters can be shared as the dataframe headers to be used, and the data frame itself is passed to the function as well.
+
+`sns.regplot(x = 'header_1',y = 'header_2',data= df)`
+
+2. Box and whisker plot
+
+A box plot (or box-and-whisker plot) shows the distribution of quantitative data in a way that facilitates comparisons between variables or across levels of a categorical variable. The box shows the quartiles of the dataset while the whiskers extend to show the rest of the distribution, except for points that are determined to be "outliers".
+
+3. Residual Plot
+
+A residual plot is used to display the quality of polynomial regression. This function will regress y on x as a polynomial regression and then draw a scatterplot of the residuals.
+Residuals are the differences between the observed values of the dependent variable and the predicted values obtained from the regression model. In other words, a residual is a measure of how much a regression line vertically misses a data point, meaning how far off the predictions are from the actual data points.
+
+`sns.residplot(data=df,x='header_1', y='header_2')`
+
+Alternatively:
+
+`sns.residplot(x=df['header_1'], y=df['header_2'])`
 
 
+4. KDE plot
+
+A Kernel Density Estimate (KDE) plot is a graph that creates a probability distribution curve for the data based upon its likelihood of occurrence on a specific value. This is created for a single vector of information. It is used in the course in order to compare the likely curves of the actual data with that of the predicted data.
+
+`sns.kdeplot(X)`
+
+5. Distribution Plot
+
+This plot has the capacity to combine the histogram and the KDE plots. This plot creates the distribution curve using the bins of the histogram as a reference for estimation. You can optionally keep or discard the histogram from being displayed. In the context of the course, this plot can be used interchangeably with the KDE plot.
+
+`sns.distplot(X,hist=False)`
+
+|Package/Method|Description|Code Example|
+|-------|-----|------|
+| Complete dataframe correlation | Correlation matrix created using all the attributes of the dataset. |` df.corr()`|
